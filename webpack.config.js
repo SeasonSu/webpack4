@@ -1,6 +1,7 @@
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const webpack = require('webpack'); // 新增
 const path = require('path');
+const srcPath = path.join(__dirname, '/../src');
 module.exports = {
     module: {
         rules: [
@@ -25,8 +26,8 @@ module.exports = {
             {
                 test: /\.css$/,
                 use: [
-                    {  loader: "style-loader"  },
-                    {  loader: "css-loader"  }
+                    "style-loader",
+                    "css-loader"
                 ]
             },
             {
@@ -81,10 +82,26 @@ module.exports = {
         new webpack.NamedModulesPlugin(), // 新增
         new webpack.HotModuleReplacementPlugin() //新增
     ],
+    resolve: {
+        extensions: ['', '.js', '.jsx','less','scss'],
+        alias: {
+          rootPath:`${srcPath}`,
+          components: `${srcPath}/components/`,
+          reducers: `${srcPath}/reducers/`,
+          router: `${srcPath}/router/`,
+          sources: `${srcPath}/sources/`,
+          stores: `${srcPath}/stores/`,
+          utils: `${srcPath}/utils/`,
+        }
+    },
     devServer: {
         contentBase: require('path').join(__dirname, "dist"),
         compress: true,
+        inline:true,
         port: 8033,
+        hotOnly: true,
+        historyApiFallback: true,
+        // progress: true,
         host: "127.0.0.1",
         hot: true // 新增
     }

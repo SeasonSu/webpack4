@@ -1,6 +1,8 @@
 {
     "plugins": [
+        ["import-glob"],
         ["react-hot-loader/babel"],
+        ["dva-hmr"],
         [
             "import",
             {
@@ -9,5 +11,10 @@
             }
         ]
     ],
-    "presets": ["env", "react"]
+    "presets": [
+        "es2015",
+        "stage-2",
+        "env",
+        "react"
+    ]
 }
