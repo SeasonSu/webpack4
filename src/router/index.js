@@ -1,14 +1,21 @@
 import React from 'react';
 import { routerRedux, Route, Switch } from 'dva/router';
-import IndexPage from '../pages/Home';
-import Login from '../pages/Login';
 import routes from './routes'
 const { ConnectedRouter } = routerRedux;
+import dynamic from 'dva/dynamic';
 
 function RouterConfig({ history,app }) {
-    const routerComp = routes.map((item,index) => (
-        <Route exact path={item.path} component={item.component} key={index}/>
-    ))
+    console.log(routes)
+    const routerComp = routes.map((item,index) => {
+        // 异步加载路由
+        var comp = dynamic({
+            app,
+            component: () => item.component
+        });
+        return (
+            <Route exact path={item.path} component={comp} key={index}/>
+        )
+    })
     return (
         <ConnectedRouter history={history}>
             <Switch>
@@ -17,5 +24,4 @@ function RouterConfig({ history,app }) {
         </ConnectedRouter>
     );
 }
-
 export default RouterConfig;

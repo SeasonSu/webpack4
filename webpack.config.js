@@ -83,7 +83,7 @@ module.exports = {
         new webpack.HotModuleReplacementPlugin() //新增
     ],
     resolve: {
-        extensions: ['', '.js', '.jsx','less','scss'],
+        extensions: ['.js', '.jsx','less','scss'],
         alias: {
           rootPath:`${srcPath}`,
           components: `${srcPath}/components/`,

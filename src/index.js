@@ -21,7 +21,8 @@ app.use(createLoading());
 
 // 3. Model
 const appModel = require('./models/app').default
-console.log(appModel)
+ console.log(appModel)
+
 app.model(appModel);
 // 4. Router
 app.router(router);

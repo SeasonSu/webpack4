@@ -13,7 +13,7 @@ const Login = ({
     validateFieldsAndScroll,
   }
 }) => {
-
+    
   const {loginLoading} = app
 
   var uri = 'https://t.alipayobjects.com/images/T1QUBfXo4fXXXXXXXX.png'
