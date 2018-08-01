@@ -3,7 +3,7 @@ import { routerRedux } from 'dva/router'
 
 const delay = timeout => new Promise(resolve => setTimeout(resolve, timeout));
 
-export default {
+module.exports = {
   namespace: 'app',
   state:
   {
@@ -20,9 +20,11 @@ export default {
       yield put({ type: 'hideLoginLoading' })
       yield call(delay,1000)
       yield put(routerRedux.push('/main'))
-    }},
+    }
+    },
   reducers: {
     showLoginLoading (state) {
+        console.log('app-login')
       return {
         loginLoading: true,
       }

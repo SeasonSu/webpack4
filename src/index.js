@@ -1,31 +1,30 @@
 require("babel-register")
 require("babel-polyfill")
 import { hot } from 'react-hot-loader'
-import createHistory from 'history/createHashHistory';
-// user BrowserHistory
-// import createHistory from 'history/createBrowserHistory';
-import createLoading from 'dva-loading';
+import createHistory from 'history/createHashHistory'
+import createLoading from 'dva-loading'
 import router from './router/index'
-import dva from 'dva';
-
+import dva from 'dva'
+import { loadModels } from 'utils/utilsModels'
+import MockJS from 'mock'
 hot(module)
-// 1. Initialize
+
 const app = dva({
   history: createHistory()
-});
+})
 
-app.use(createLoading());
+app.use(createLoading())
 
-// 2. Plugins
-// app.use({});
+// console.log(require('./models/global').default)
+loadModels(app)
+// app.model(require('./models/global').default);
 
-// 3. Model
-const appModel = require('./models/app').default
- console.log(appModel)
+app.router(router)
 
-app.model(appModel);
-// 4. Router
-app.router(router);
+app.start('#app')
 
-// 5. Start
-app.start('#app');
+
+!isProd && MockJS.start()
+
+
+export default app._store

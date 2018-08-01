@@ -1,7 +1,8 @@
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const webpack = require('webpack'); // 新增
 const path = require('path');
-const srcPath = path.join(__dirname, '/../src');
+const srcPath = path.join(__dirname, 'src');
+
 module.exports = {
     module: {
         rules: [
@@ -9,41 +10,73 @@ module.exports = {
                 test: /\.js$/,
                 exclude: /node_modules/,
                 use: [
-                    {   loader: "babel-loader" }
+                    {  loader: "babel-loader" }
                 ]
             },
             {
                 test: /\.less$/,
+                exclude: /node_modules/,
                 use: [
-                    {  loader: "style-loader"  },
-                    {  loader: "css-loader"  },
+                    {   loader : "css-hot-loader" },
+                    {   loader: "style-loader"  },
+                    {
+                        loader: "css-loader",
+                        options: {
+                            modules:true,
+                            importLoaders:1,
+                            localIdentName:'[name]__[local]___[hash:base64:5]'
+                        }
+                    },
                     {
                         loader: "less-loader",
-                        options: { javascriptEnabled: true }
+                        options: {
+                             javascriptEnabled: true,
+                             noIeCompat: true
+                        }
+                    }
+                ]
+            },
+            {
+                test: /\.less$/,
+                include: /node_modules/,
+                use: [
+                    {   loader : "css-hot-loader" },
+                    {   loader: "style-loader"  },
+                    {
+                        loader: "css-loader"
+                    },
+                    {
+                        loader: "less-loader",
+                        options: {
+                             javascriptEnabled: true,
+                             noIeCompat: true
+                        }
                     }
                 ]
             },
             {
                 test: /\.css$/,
+                exclude: /node_modules/,
                 use: [
-                    "style-loader",
-                    "css-loader"
+                    {   loader : "css-hot-loader" },
+                    {
+                        loader: "css-loader",
+                        options: {
+                            modules:true,
+                            importLoaders:1,
+                            localIdentName:'[name]__[local]___[hash:base64:5]'
+                        }
+                    },
                 ]
             },
             {
-                test: /\.sass$/,
+                test: /\.css$/,
+                include: /node_modules/,
                 use: [
-                    {  loader: "style-loader"  },
-                    {  loader: "css-loader"  },
-                    {  loader: "sass-loader"  },
-                ]
-            },
-            {
-                test: /\.scss$/,
-                use: [
-                    {  loader: "style-loader"  },
-                    {  loader: "css-loader"  },
-                    {  loader: "sass-loader"  },
+                    {   loader : "css-hot-loader" },
+                    {
+                        loader: "css-loader"
+                    },
                 ]
             },
             {
@@ -80,18 +113,22 @@ module.exports = {
             filename: "./index.html"
         }),
         new webpack.NamedModulesPlugin(), // 新增
-        new webpack.HotModuleReplacementPlugin() //新增
+        new webpack.HotModuleReplacementPlugin(), //新增
+        new webpack.DefinePlugin({
+            isProd: JSON.stringify(JSON.parse((process.env.NODE_ENV == 'prod') || 'false'))
+        })
     ],
     resolve: {
         extensions: ['.js', '.jsx','less','scss'],
         alias: {
-          rootPath:`${srcPath}`,
-          components: `${srcPath}/components/`,
-          reducers: `${srcPath}/reducers/`,
-          router: `${srcPath}/router/`,
-          sources: `${srcPath}/sources/`,
-          stores: `${srcPath}/stores/`,
-          utils: `${srcPath}/utils/`,
+            assets: `${srcPath}/assets/`,
+            components: `${srcPath}/components/`,
+            router: `${srcPath}/router/`,
+            mock: `${srcPath}/mock/`,
+            pages: `${srcPath}/pages/`,
+            models: `${srcPath}/models/`,
+            services: `${srcPath}/services/`,
+            utils: `${srcPath}/utils/`,
         }
     },
     devServer: {

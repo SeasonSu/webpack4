@@ -1,27 +1,42 @@
-import React from 'react';
-import { routerRedux, Route, Switch } from 'dva/router';
+import React from 'react'
 import routes from './routes'
-const { ConnectedRouter } = routerRedux;
-import dynamic from 'dva/dynamic';
+import dynamic from 'dva/dynamic'
+import { LocaleProvider } from 'antd'
+import zhCN from 'antd/lib/locale-provider/zh_CN'
+import Loading from 'components/Loading/index'
+import { CommonLayout, UserLayout } from 'components/Layout'
+import { routerRedux, Route, Switch } from 'dva/router'
+import Authorized from 'components/Authorized'
+import { getQueryPath } from 'utils/utils'
+const { ConnectedRouter } = routerRedux
+const { AuthorizedRoute } = Authorized
 
 function RouterConfig({ history,app }) {
-    console.log(routes)
-    const routerComp = routes.map((item,index) => {
-        // 异步加载路由
-        var comp = dynamic({
-            app,
-            component: () => item.component
-        });
-        return (
-            <Route exact path={item.path} component={comp} key={index}/>
-        )
-    })
+
     return (
-        <ConnectedRouter history={history}>
-            <Switch>
-                {routerComp}
-            </Switch>
-        </ConnectedRouter>
-    );
+        <LocaleProvider locale={zhCN}>
+            <ConnectedRouter history={history}>
+                <Switch>
+                    <Route path="/user"
+                        render={props => {
+                            props.routerData = routes
+                            return <UserLayout {...props} />
+                        }}
+                    />
+                    <AuthorizedRoute
+                        path="/"
+                        render={props => {
+                            props.routerData = routes
+                            return <CommonLayout {...props} />
+                        }}
+                        authority={['admin', 'user']}
+                        redirectPath={getQueryPath('/user/login', {
+                          redirect: window.location.href,
+                        })}
+                    />
+                </Switch>
+            </ConnectedRouter>
+        </LocaleProvider>
+    )
 }
-export default RouterConfig;
+export default RouterConfig
