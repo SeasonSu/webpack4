@@ -1,9 +1,11 @@
-// use localStorage to store the authority info, which might be sent from server in actual project.
-export function getAuthority() {
-  // return localStorage.getItem('antd-pro-authority') || ['admin', 'user']
-  return localStorage.getItem('antd-pro-authority') || 'admin'
+
+const Authority = {
+    getAuthority: () => {
+        return localStorage.getItem('seasonAdmin-authority') || 'admin'
+    },
+    setAuthority: (authority) => {
+         return localStorage.setItem('seasonAdmin-authority', authority)
+    }
 }
 
-export function setAuthority(authority) {
-  return localStorage.setItem('antd-pro-authority', authority)
-}
+module.exports = Authority

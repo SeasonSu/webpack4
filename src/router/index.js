@@ -7,7 +7,7 @@ import Loading from 'components/Loading/index'
 import { CommonLayout, UserLayout } from 'components/Layout'
 import { routerRedux, Route, Switch } from 'dva/router'
 import Authorized from 'components/Authorized'
-import { getQueryPath } from 'utils/utils'
+import { getRoutesPath } from 'utils/utilsRoutes'
 const { ConnectedRouter } = routerRedux
 const { AuthorizedRoute } = Authorized
 
@@ -30,7 +30,7 @@ function RouterConfig({ history,app }) {
                             return <CommonLayout {...props} />
                         }}
                         authority={['admin', 'user']}
-                        redirectPath={getQueryPath('/user/login', {
+                        redirectPath={getRoutesPath('/user/login', {
                           redirect: window.location.href,
                         })}
                     />

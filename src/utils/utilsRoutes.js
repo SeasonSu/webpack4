@@ -1,5 +1,6 @@
+import { parse, stringify } from 'qs'
 const utilsRoutes = {
-    getRenderArr(routes) {
+    getRenderArr:(routes) => {
         let renderArr = []
         renderArr.push(routes[0])
         for (let i = 1; i < routes.length; i += 1) {
@@ -13,7 +14,7 @@ const utilsRoutes = {
         }
         return renderArr
     },
-    getRelation(str1, str2) {
+    getRelation:(str1, str2) => {
         if (str1 === str2) {
             console.warn('Two path are equal!')
         }
@@ -26,7 +27,7 @@ const utilsRoutes = {
         }
         return 3
     },
-    getRoutes(path, routerData){
+    getRoutes:(path, routerData) => {
         routerData = routerData || {}
         let routes = Object.keys(routerData).filter(
             routePath => routePath.indexOf(path) === 0 && routePath !== path
@@ -44,10 +45,10 @@ const utilsRoutes = {
         })
         return renderRoutes
     },
-    getRoutesQuery() {
+    getRoutesQuery:() => {
         return parse(window.location.href.split('?')[1])
     },
-    getRoutesPath(path = '', query = {}) {
+    getRoutesPath:(path = '', query = {}) => {
         const search = stringify(query)
         if (search.length) {
             return `${path}?${search}`
@@ -57,9 +58,4 @@ const utilsRoutes = {
 
 }
 
-module.exports = {
-    utilsRoutes,
-    getRoutes:utilsRoutes.getRoutes,
-    getRoutesQuery:utilsRoutes.getRoutesQuery,
-    getRoutesPath:utilsRoutes.getRoutesPath,
-}
+module.exports = utilsRoutes

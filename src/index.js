@@ -6,8 +6,8 @@ import createLoading from 'dva-loading'
 import router from './router/index'
 import dva from 'dva'
 import { loadModels } from 'utils/utilsModels'
-import MockJS from 'mock'
-hot(module)
+
+// hot(module)
 
 const app = dva({
   history: createHistory()
@@ -15,16 +15,10 @@ const app = dva({
 
 app.use(createLoading())
 
-// console.log(require('./models/global').default)
 loadModels(app)
-// app.model(require('./models/global').default);
 
 app.router(router)
 
 app.start('#app')
-
-
-!isProd && MockJS.start()
-
 
 export default app._store

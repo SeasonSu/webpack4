@@ -1,8 +1,10 @@
-const HtmlWebPackPlugin = require("html-webpack-plugin");
-const webpack = require('webpack'); // 新增
-const path = require('path');
-const srcPath = path.join(__dirname, 'src');
-
+const HtmlWebPackPlugin = require("html-webpack-plugin")
+const webpack = require('webpack')
+const path = require('path')
+const srcPath = path.join(__dirname, 'src')
+const apiMocker = require('webpack-api-mocker')
+const mocker = path.resolve(srcPath,'mock/index.js')
+console.log(mocker)
 module.exports = {
     module: {
         rules: [
@@ -140,6 +142,11 @@ module.exports = {
         historyApiFallback: true,
         // progress: true,
         host: "127.0.0.1",
-        hot: true // 新增
+        hot: true,
+        before(app){
+            apiMocker(app, mocker, {
+
+            })
+        }
     }
 };

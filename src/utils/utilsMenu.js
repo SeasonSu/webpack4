@@ -1,9 +1,10 @@
+
 const utilsMenu = {
-    isUrl(path){
+    isUrl: path => {
         const reg = /(((^https?:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+(?::\d+)?|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)$/
         return reg.test(path)
     },
-    urlToList(url) {
+    urlToList:url => {
         const urllist = url.split('/').filter(i => i)
         return urllist.map((urlItem, index) => {
             return `/${urllist.slice(0, index + 1).join('/')}`
@@ -11,8 +12,4 @@ const utilsMenu = {
     }
 }
 
-module.exports = {
-    utilsMenu,
-    isUrl:utilsMenu.isUrl,
-    urlToList:utilsMenu.urlToList
-}
+module.exports = utilsMenu

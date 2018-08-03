@@ -42,10 +42,6 @@ export default class GlobalHeader extends PureComponent {
                 <Menu.Item disabled>
                     <Icon type="setting" />设置
                 </Menu.Item>
-                <Menu.Item key="triggerError">
-                    <Icon type="close-circle" />触发报错
-                </Menu.Item>
-                <Menu.Divider />
                 <Menu.Item key="logout">
                     <Icon type="logout" />退出登录
                 </Menu.Item>
@@ -65,27 +61,16 @@ export default class GlobalHeader extends PureComponent {
                     onClick={this.toggle}
                 />
                 <div className={styles.right}>
-
-                <Tooltip title="使用文档">
-                    <a
-                        target="_blank"
-                        href="http://pro.ant.design/docs/getting-started"
-                        rel="noopener noreferrer"
-                        className={styles.action}
-                    >
-                        <Icon type="question-circle-o" />
-                    </a>
-                </Tooltip>
-                {currentUser.name ? (
-                    <Dropdown overlay={menu}>
-                        <span className={`${styles.action} ${styles.account}`}>
-                            <Avatar size="small" className={styles.avatar} src={currentUser.avatar} />
-                            <span className={styles.name}>{currentUser.name}</span>
-                        </span>
-                    </Dropdown>
-                ) : (
-                    <Spin size="small" style={{ marginLeft: 8 }} />
-                )}
+                    {currentUser.name ? (
+                        <Dropdown overlay={menu}>
+                            <span className={`${styles.action} ${styles.account}`}>
+                                <Avatar size="small" className={styles.avatar} src={currentUser.avatar} />
+                                <span className={styles.name}>{currentUser.name}</span>
+                            </span>
+                        </Dropdown>
+                    ) : (
+                        <Spin size="small" style={{ marginLeft: 8 }} />
+                    )}
                 </div>
             </div>
         )

@@ -47,7 +47,6 @@ class UserLayout extends React.PureComponent {
         return title
     }
     render() {
-        console.log(this)
         const { routerData, match } = this.props
         return (
             <DocumentTitle title={this.getPageTitle()}>
@@ -57,10 +56,9 @@ class UserLayout extends React.PureComponent {
                             <div className={styles.header}>
                                 <Link to="/">
                                     <img alt="logo" className={styles.logo} src={logo} />
-                                    <span className={styles.title}>Ant Design</span>
+                                    <span className={styles.title}>backend</span>
                                 </Link>
                             </div>
-                            <div className={styles.desc}>Ant Design 是西湖区最具影响力的 Web 设计规范</div>
                         </div>
                         <Switch>
                             {getRoutes(match.path, routerData).map(item => (
