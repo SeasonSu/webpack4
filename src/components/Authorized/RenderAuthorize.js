@@ -10,10 +10,7 @@ const renderAuthorize = Authorized => {
             if (currentAuthority.constructor.name === 'Function') {
                 CURRENT = currentAuthority()
             }
-            if (
-                currentAuthority.constructor.name === 'String' ||
-                currentAuthority.constructor.name === 'Array'
-            ) {
+            if (currentAuthority.constructor.name === 'String' || currentAuthority.constructor.name === 'Array') {
                 CURRENT = currentAuthority
             }
         } else {
